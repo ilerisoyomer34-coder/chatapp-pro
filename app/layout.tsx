@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
-const siteUrl = "https://chatapp-secure.ysfysfysf.chatgpt.site";
+const siteUrl = "https://ilerisoyomer.ysfysfysf.chatgpt.site";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -72,12 +72,6 @@ const structuredData = {
   applicationCategory: "CommunicationApplication",
   operatingSystem: "Web",
   description,
-  offers: {
-    "@type": "Offer",
-    price: "3.00",
-    priceCurrency: "EUR",
-    availability: "https://schema.org/PreOrder",
-  },
 };
 
 export default function RootLayout({

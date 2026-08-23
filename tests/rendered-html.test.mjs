@@ -92,6 +92,7 @@ test("server-renders the ChatApp product page", async () => {
   assert.match(html, /<details class="plan-details">/i);
   assert.match(html, /Yakında sunulacak\./i);
   assert.doesNotMatch(html, /Fiyat yakında açıklanacak/i);
+  assert.doesNotMatch(html, /3\.00|priceCurrency|EUR/i);
   assert.doesNotMatch(html, /codex-preview|Your site is taking shape/i);
 });
 
@@ -284,7 +285,7 @@ test("publishes crawl and sitemap instructions", async () => {
   assert.match(robots, /User-agent: \*/);
   assert.match(robots, /Allow: \//);
   assert.match(robots, /Sitemap: .*\/sitemap\.txt/);
-  assert.match(sitemap, /chatapp-secure\.ysfysfysf\.chatgpt\.site/);
+  assert.match(sitemap, /ilerisoyomer\.ysfysfysf\.chatgpt\.site/);
 });
 
 test("serves Google verification without a redirect", async () => {

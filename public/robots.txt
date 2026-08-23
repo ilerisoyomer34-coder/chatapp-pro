@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://chatapp-secure.ysfysfysf.chatgpt.site/sitemap.txt
+Sitemap: https://ilerisoyomer.ysfysfysf.chatgpt.site/sitemap.txt
