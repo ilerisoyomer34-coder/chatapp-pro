@@ -84,6 +84,8 @@ test("server-renders the ChatApp product page", async () => {
   assert.match(html, /ChatApp ile konuşmalarını daha güvenli başlat\./i);
   assert.match(html, /href="\/chat\/index\.html"/i);
   assert.match(html, /ChatApp Pro/i);
+  assert.match(html, /Ömer İlerisoy/i);
+  assert.doesNotMatch(html, /Ece Yılmaz/i);
   assert.match(html, /href="#pro"/i);
   assert.match(html, /\/pro\/privacy\.png/i);
   assert.doesNotMatch(html, /3\s*€/i);

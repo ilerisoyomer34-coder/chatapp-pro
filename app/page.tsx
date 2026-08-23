@@ -133,9 +133,9 @@ export default function Home() {
             <div className="phone">
               <div className="phone-top">
                 <div className="chat-person">
-                  <span className="chat-avatar">EY</span>
+                  <span className="chat-avatar">Öİ</span>
                   <span>
-                    <strong>Ece Yılmaz</strong>
+                    <strong>Ömer İlerisoy</strong>
                     <small>Uçtan uca şifreli</small>
                   </span>
                 </div>
