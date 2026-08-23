@@ -1,4 +1,6 @@
-const appUrl = "https://ilerisoyomer34-coder.github.io/chatapp-standalone/";
+import Image from "next/image";
+
+const appUrl = "/chat/index.html";
 
 const trustSignals = [
   "Gizlilik odaklı sohbet deneyimi",
@@ -26,16 +28,59 @@ const plans = [
     name: "Başlangıç",
     price: "Ücretsiz",
     detail: "Uygulamayı keşfetmek isteyen herkes için.",
+    note: "Temel sohbet deneyimi",
+    href: appUrl,
   },
   {
-    name: "Premium",
+    name: "Pro",
     price: "Yakında",
-    detail: "Daha gelişmiş güvenlik ve kişisel kullanım özellikleri için.",
+    detail: "Gelişmiş gizlilik, kişiselleştirme ve cihazlar arası kullanım için.",
+    note: "Ücretli Pro üyeliği",
+    href: "#pro",
+    featured: true,
   },
   {
     name: "Ekip",
     price: "Demo ile",
     detail: "Topluluklar ve ekipler için güvenli sohbet alanı.",
+    note: "Kuruma özel görüşme",
+    href: `${appUrl}#demo`,
+  },
+];
+
+const proFeatures = [
+  {
+    title: "Gelişmiş gizlilik kontrolleri",
+    body: "Hangi bilginin ne kadar süre görünür kalacağını daha ayrıntılı yönet. Pro, günlük sohbet akışına ek bir kontrol katmanı getirir.",
+    image: "/pro/privacy.png",
+    alt: "ChatApp Pro gelişmiş gizlilik kontrolleri arayüzü",
+    points: [
+      "Otomatik silinen mesaj seçenekleri",
+      "Okundu ve çevrimiçi bilgisi kontrolleri",
+      "Ek uygulama kilidi ve gizli sohbet alanı",
+    ],
+  },
+  {
+    title: "Sana göre çalışan sohbet alanı",
+    body: "Temayı, mesaj görünümünü ve bildirim düzenini kullanım biçimine göre ayarla. Odak modlarıyla yalnızca önemli konuşmalara yer aç.",
+    image: "/pro/personalization.png",
+    alt: "ChatApp Pro tema ve odak modu ayarları arayüzü",
+    points: [
+      "Özel renk ve mesaj görünümleri",
+      "Kişisel bildirim profilleri",
+      "Sessiz saatler ve odak modları",
+    ],
+  },
+  {
+    title: "Cihazlar arasında güvenli devamlılık",
+    body: "Güvendiğin cihazlarda konuşmalarına kaldığın yerden devam et. Dosya aktarımı ve cihaz doğrulaması tek bir güvenlik görünümünde buluşur.",
+    image: "/pro/continuity.png",
+    alt: "ChatApp Pro güvenli cihazlar arası kullanım arayüzü",
+    points: [
+      "Güvenilir cihaz yönetimi",
+      "Şifreli dosya teslim durumu",
+      "Öncelikli Pro destek kanalı",
+    ],
   },
 ];
 
@@ -52,6 +97,7 @@ export default function Home() {
             <a href="#guvenlik">Güvenlik</a>
             <a href="#bekleme">Bekleme listesi</a>
             <a href="#uyelik">Üyelik</a>
+            <a href="#pro">Pro</a>
           </div>
           <a className="nav-cta" href={appUrl}>
             Uygulamayı Aç
@@ -86,22 +132,28 @@ export default function Home() {
             <div className="signal-ring" />
             <div className="phone">
               <div className="phone-top">
-                <span>ChatApp</span>
-                <span className="status">Korumalı</span>
+                <div className="chat-person">
+                  <span className="chat-avatar">EY</span>
+                  <span>
+                    <strong>Ece Yılmaz</strong>
+                    <small>Uçtan uca şifreli</small>
+                  </span>
+                </div>
+                <span className="status">Çevrimiçi</span>
               </div>
-              <div className="message message-one">
-                <span className="lock">●</span>
-                Sohbet kanalı hazır.
+              <div className="encryption-note">
+                <span className="lock">●</span> Bu konuşma korumalı
               </div>
+              <div className="message message-one">Sunum dosyasını aldın mı?</div>
               <div className="message message-two">
-                Güvenli bağlantı hissi, sade kullanım.
+                Evet, şimdi inceliyorum. Buradan güvenle devam edebiliriz.
               </div>
               <div className="message message-three">
-                <span className="dots">•••</span>
+                Harika. Son notları da birazdan gönderiyorum.
               </div>
               <div className="composer">
-                <span>Mesaj yaz</span>
-                <strong>Gönder</strong>
+                <span>Güvenli mesaj yaz...</span>
+                <strong>→</strong>
               </div>
             </div>
           </div>
@@ -163,20 +215,114 @@ export default function Home() {
         </div>
         <div className="plan-grid">
           {plans.map((plan) => (
-            <article className="plan" key={plan.name}>
+            <article
+              className={`plan${plan.featured ? " pro-plan" : ""}`}
+              key={plan.name}
+            >
+              {plan.featured ? <span className="plan-badge">Yeni</span> : null}
               <h3>{plan.name}</h3>
               <strong>{plan.price}</strong>
               <p>{plan.detail}</p>
-              <a href={appUrl}>İncele</a>
+              <small>{plan.note}</small>
+              {plan.featured ? (
+                <details className="plan-details">
+                  <summary>İncele</summary>
+                  <div className="plan-details-content">
+                    <p>
+                      Pro; gelişmiş gizlilik kontrolleri, özel görünüm ve odak
+                      ayarları, güvenilir cihaz yönetimi ve öncelikli destek
+                      sunar.
+                    </p>
+                    <ul>
+                      <li>Gelişmiş gizlilik</li>
+                      <li>Kişisel tema ve odak modları</li>
+                      <li>Güvenli cihaz devamlılığı</li>
+                    </ul>
+                    <strong className="availability">Yakında sunulacak.</strong>
+                    <a className="pro-more-link" href="#pro">
+                      Tüm Pro özelliklerini gör
+                    </a>
+                  </div>
+                </details>
+              ) : (
+                <a href={plan.href}>İncele</a>
+              )}
             </article>
           ))}
         </div>
       </section>
 
+      <section className="pro-section" id="pro">
+        <div className="pro-inner">
+          <header className="pro-header">
+            <div>
+              <p className="section-kicker">Ücretli üyelik</p>
+              <h2>ChatApp Pro</h2>
+              <p className="pro-lead">
+                Daha fazla kontrol. Daha güçlü gizlilik. Günlük sohbetini kendi
+                düzenine göre yönetmek isteyenler için gelişmiş bir deneyim.
+              </p>
+            </div>
+            <div className="pro-price" aria-label="ChatApp Pro fiyat bilgisi">
+              <span>Pro planı</span>
+              <strong>Yakında</strong>
+              <small>Ücretli üyelik</small>
+            </div>
+          </header>
+
+          <div className="pro-feature-list">
+            {proFeatures.map((feature, index) => (
+              <article className="pro-feature" key={feature.title}>
+                <Image
+                  src={feature.image}
+                  alt={feature.alt}
+                  width={1024}
+                  height={1024}
+                  sizes="(max-width: 860px) 100vw, 50vw"
+                />
+                <div className="pro-feature-copy">
+                  <span>{String(index + 1).padStart(2, "0")}</span>
+                  <h3>{feature.title}</h3>
+                  <p>{feature.body}</p>
+                  <ul>
+                    {feature.points.map((point) => (
+                      <li key={point}>{point}</li>
+                    ))}
+                  </ul>
+                </div>
+              </article>
+            ))}
+          </div>
+
+          <div className="pro-comparison">
+            <div>
+              <span>ChatApp</span>
+              <strong>Ücretsiz başlangıç</strong>
+              <p>Temel güvenli sohbet ve günlük mesajlaşma deneyimi.</p>
+            </div>
+            <div className="comparison-pro">
+              <span>ChatApp Pro</span>
+              <strong>Ücretli Pro üyeliği</strong>
+              <p>Gelişmiş kontrol, kişiselleştirme ve öncelikli destek.</p>
+            </div>
+          </div>
+
+          <div className="pro-action">
+            <p>
+              Pro üyeliği hazırlanıyor. Erken erişim listesine katılanlara
+              öncelik verilecek. Yakında sunulacak.
+            </p>
+            <a className="primary-button" href={`${appUrl}#waitlist`}>
+              Pro erken erişime katıl
+            </a>
+          </div>
+        </div>
+      </section>
+
       <section className="final-cta">
-        <p>ChatApp hazır olduğunda ilk deneyenlerden biri ol.</p>
+        <p>ChatApp&apos;i bugün dene, Pro açıldığında ilk öğrenenlerden biri ol.</p>
         <a className="primary-button" href={appUrl}>
-          ChatApp'e Git
+          ChatApp&apos;e Git
         </a>
       </section>
     </main>

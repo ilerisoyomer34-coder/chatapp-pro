@@ -1,0 +1,20 @@
+{
+  "name": "ChatApp",
+  "short_name": "ChatApp",
+  "description": "Modern ve gizlilik odakli guvenli sohbet uygulamasi.",
+  "id": "/chat/",
+  "start_url": "/chat/index.html?source=pwa",
+  "scope": "/chat/",
+  "display": "standalone",
+  "background_color": "#061311",
+  "theme_color": "#061311",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/chat/icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { headers } from "next/headers";
 import "./globals.css";
+
+const siteUrl = "https://chatapp-secure.ysfysfysf.chatgpt.site";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -13,38 +14,71 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export async function generateMetadata(): Promise<Metadata> {
-  const headerList = await headers();
-  const host = headerList.get("x-forwarded-host") ?? headerList.get("host");
-  const protocol = headerList.get("x-forwarded-proto") ?? "https";
-  const metadataBase = new URL(host ? `${protocol}://${host}` : "https://chatapp.site");
-  const title = "ChatApp | Güvenli Sohbet Uygulaması";
-  const description =
-    "ChatApp, herkes için premium ve modern bir güvenli sohbet deneyimi sunar.";
+const title = "ChatApp | Güvenli Sohbet ve ChatApp Pro";
+const description =
+  "ChatApp ile modern ve güvenli sohbeti keşfet. Ücretsiz başlangıç, yakında sunulacak ChatApp Pro üyeliği, bekleme listesi ve demo seçenekleri.";
 
-  return {
-    metadataBase,
+export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
+  title,
+  description,
+  keywords: [
+    "ChatApp",
+    "güvenli sohbet",
+    "mesajlaşma uygulaması",
+    "ChatApp Pro",
+    "özel sohbet",
+  ],
+  alternates: {
+    canonical: siteUrl,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
+  openGraph: {
+    type: "website",
+    locale: "tr_TR",
+    url: siteUrl,
+    siteName: "ChatApp",
     title,
     description,
-    openGraph: {
-      title,
-      description:
-        "Güvenli sohbet etmek, bekleme listesine katılmak ve demo talebi oluşturmak için ChatApp'i keşfet.",
-      images: [new URL("/og.png", metadataBase).toString()],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title,
-      description:
-        "Premium, modern ve teknoloji odaklı güvenli sohbet deneyimi.",
-      images: [new URL("/og.png", metadataBase).toString()],
-    },
-    icons: {
-      icon: "/favicon.svg",
-      shortcut: "/favicon.svg",
-    },
-  };
-}
+    images: [`${siteUrl}/og-pro.png`],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title,
+    description: "ChatApp Pro ile daha fazla kontrol ve daha güçlü gizlilik.",
+    images: [`${siteUrl}/og-pro.png`],
+  },
+  icons: {
+    icon: "/favicon.svg",
+    shortcut: "/favicon.svg",
+  },
+};
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: "ChatApp",
+  url: siteUrl,
+  applicationCategory: "CommunicationApplication",
+  operatingSystem: "Web",
+  description,
+  offers: {
+    "@type": "Offer",
+    price: "3.00",
+    priceCurrency: "EUR",
+    availability: "https://schema.org/PreOrder",
+  },
+};
 
 export default function RootLayout({
   children,
@@ -56,6 +90,10 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        />
         {children}
       </body>
     </html>
