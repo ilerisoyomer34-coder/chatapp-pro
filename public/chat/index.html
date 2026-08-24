@@ -1334,6 +1334,70 @@ document.addEventListener('DOMContentLoaded', async function() {
         /      emojis:'[^']*'\.split\(' '\)\.map\(e => \(\{ char:e, onPick:\(\) => this\.pickEmoji\(e\) \}\)\),/,
         `      emojis:(window.ChatAppPro ? window.ChatAppPro.emojis() : []).map(e => ({ char:e, onPick:() => this.pickEmoji(e) })),`
       );
+      // Turn the app footer into real navigation instead of decorative options.
+      t = t.replace(
+        `query:'', activeChat:null, draft:'', emojiOpen:false, attachment:null, proRevision:0,`,
+        `query:'', activeChat:null, draft:'', emojiOpen:false, attachment:null, proRevision:0, appTab:'chats',`
+      );
+      t = t.replace(
+        `  openPro() { if (window.ChatAppPro) window.ChatAppPro.open(this.state.me); }`,
+        `  openPro(tab) { if (window.ChatAppPro) window.ChatAppPro.open(this.state.me, tab); }
+  setAppTab(tab) {
+    this.stopTyping();
+    this.setState({ appTab:tab, activeChat:null, query:'', draft:'', emojiOpen:false, attachment:null });
+  }`
+      );
+      t = t.replace(
+        `this.setState({ activeChat: chat.id, query:'', draft:'' });`,
+        `this.setState({ appTab:'chats', activeChat: chat.id, query:'', draft:'' });`
+      );
+      t = t.replace(
+        `this.setState({ me:u, view:'app', fName:'', fUser:'', fPass:'', authErr:'', query:'', activeChat:null });`,
+        `this.setState({ me:u, view:'app', appTab:'chats', fName:'', fUser:'', fPass:'', authErr:'', query:'', activeChat:null });`
+      );
+      t = t.replace(
+        `const searching = q.length > 0;`,
+        `const peopleTab = s.appTab === 'people';
+    const searching = q.length > 0 || peopleTab;`
+      );
+      t = t.replace(
+        `results = Object.values(db.users).filter(u => !u.removed && u.username !== me &&
+        (u.username.includes(q) || (u.name||'').toLowerCase().includes(q)))`,
+        `results = Object.values(db.users).filter(u => !u.removed && u.username !== me &&
+        (!q || u.username.includes(q) || (u.name||'').toLowerCase().includes(q)))`
+      );
+      t = t.replace(
+        `>ARAMA SONUÇLARI</div>`,
+        `>{{ listHeading }}</div>`
+      );
+      t = t.replace(
+        `      searching, notSearching: !searching, results, noResults: searching && results.length===0,`,
+        `      searching, notSearching: !searching, results, noResults: searching && results.length===0,
+      listHeading:peopleTab ? 'KİŞİLER' : 'ARAMA SONUÇLARI',
+      chatsSelected:!peopleTab, peopleSelected:peopleTab,
+      chatsNavColor:peopleTab ? t.textSecondary : t.accent,
+      peopleNavColor:peopleTab ? t.accent : t.textSecondary,
+      showChats:() => this.setAppTab('chats'), showPeople:() => this.setAppTab('people'),
+      openCalls:() => this.openPro('phone'), openSettings:() => this.openPro('overview'),`
+      );
+      t = t.replace(
+        `              <div style="height:24px"></div>
+            </sc-if>
+          </div>
+        </div>
+      </sc-if>`,
+        `              <div style="height:24px"></div>
+            </sc-if>
+          </div>
+          <nav aria-label="Ana uygulama menüsü" style="height:66px;flex-shrink:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));align-items:stretch;border-top:1px solid {{ t.divider }};background:{{ t.bg }};padding:5px 4px max(5px,env(safe-area-inset-bottom))">
+            <button type="button" onclick="{{ showChats }}" aria-pressed="{{ chatsSelected }}" class="cx-tap" style="min-width:0;border:none;background:transparent;color:{{ chatsNavColor }};display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font:700 10.5px/1 Inter,-apple-system,system-ui,sans-serif"><span style="width:21px;height:21px;display:block">{{ ic.chat }}</span><span>Sohbetler</span></button>
+            <button type="button" onclick="{{ showPeople }}" aria-pressed="{{ peopleSelected }}" class="cx-tap" style="min-width:0;border:none;background:transparent;color:{{ peopleNavColor }};display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font:700 10.5px/1 Inter,-apple-system,system-ui,sans-serif"><span style="width:21px;height:21px;display:block">{{ ic.users }}</span><span>Kişiler</span></button>
+            <button type="button" onclick="{{ openCalls }}" class="cx-tap" style="min-width:0;border:none;background:transparent;color:{{ t.textSecondary }};display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font:700 10.5px/1 Inter,-apple-system,system-ui,sans-serif"><span style="width:21px;height:21px;display:block">{{ ic.phone }}</span><span>Aramalar</span></button>
+            <button type="button" onclick="{{ openSettings }}" class="cx-tap" style="min-width:0;border:none;background:transparent;color:{{ t.textSecondary }};display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font:700 10.5px/1 Inter,-apple-system,system-ui,sans-serif"><span style="width:21px;height:21px;display:block">{{ ic.shield }}</span><span>Ayarlar</span></button>
+          </nav>
+        </div>
+      </sc-if>`
+      );
       pages[id] = t;
     }
 

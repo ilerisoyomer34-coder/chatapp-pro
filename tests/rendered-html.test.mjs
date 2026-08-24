@@ -139,6 +139,14 @@ test("bundled chat app wires Pro privacy, calls, phone, GIF, and account hardeni
   assert.match(html, /window\.ChatAppPro\.emojis\(\)/);
   assert.match(html, /messageExpiry\(\)/);
   assert.match(html, /Güvenli bağlantı/);
+  assert.match(html, /aria-label="Ana uygulama menüsü"/);
+  assert.match(html, />Sohbetler<\/span>/);
+  assert.match(html, />Kişiler<\/span>/);
+  assert.match(html, />Aramalar<\/span>/);
+  assert.match(html, />Ayarlar<\/span>/);
+  assert.match(html, /setAppTab\(tab\)/);
+  assert.match(html, /openCalls:\(\) => this\.openPro\('phone'\)/);
+  assert.match(html, /openSettings:\(\) => this\.openPro\('overview'\)/);
   assert.doesNotMatch(html, /Uçtan uca şifreli/i);
 
   assert.match(proScript, /AES-GCM/);
