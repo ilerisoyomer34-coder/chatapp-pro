@@ -1,6 +1,7 @@
 import Image from "next/image";
 
 const appUrl = "/chat/index.html";
+const githubUrl = "https://github.com/ilerisoyomer34-coder/chatapp-pro";
 
 const trustSignals = [
   "Gizlilik odaklı sohbet deneyimi",
@@ -321,9 +322,19 @@ export default function Home() {
 
       <section className="final-cta">
         <p>ChatApp&apos;i bugün dene, Pro açıldığında ilk öğrenenlerden biri ol.</p>
-        <a className="primary-button" href={appUrl}>
-          ChatApp&apos;e Git
-        </a>
+        <div className="final-actions">
+          <a className="primary-button" href={appUrl}>
+            ChatApp&apos;e Git
+          </a>
+          <a
+            className="secondary-button"
+            href={githubUrl}
+            target="_blank"
+            rel="noreferrer"
+          >
+            GitHub Deposu
+          </a>
+        </div>
       </section>
     </main>
   );

@@ -819,6 +819,13 @@ h3 {
   max-width: 620px;
 }
 
+.final-actions {
+  align-items: center;
+  display: flex;
+  flex: 0 0 auto;
+  gap: 12px;
+}
+
 @media (max-width: 860px) {
   .nav {
     align-items: stretch;
@@ -861,6 +868,11 @@ h3 {
   .final-cta {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .final-actions {
+    align-items: stretch;
+    flex-wrap: wrap;
   }
 
   .pro-action {

@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
 const siteUrl = "https://ilerisoyomer.ysfysfysf.chatgpt.site";
+const githubUrl = "https://github.com/ilerisoyomer34-coder/chatapp-pro";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -72,6 +73,7 @@ const structuredData = {
   applicationCategory: "CommunicationApplication",
   operatingSystem: "Web",
   description,
+  sameAs: [githubUrl],
 };
 
 export default function RootLayout({

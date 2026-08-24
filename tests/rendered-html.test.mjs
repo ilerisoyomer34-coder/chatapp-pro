@@ -91,6 +91,10 @@ test("server-renders the ChatApp product page", async () => {
   assert.doesNotMatch(html, /3\s*€/i);
   assert.match(html, /<details class="plan-details">/i);
   assert.match(html, /Yakında sunulacak\./i);
+  assert.match(
+    html,
+    /https:\/\/github\.com\/ilerisoyomer34-coder\/chatapp-pro/i,
+  );
   assert.doesNotMatch(html, /Fiyat yakında açıklanacak/i);
   assert.doesNotMatch(html, /3\.00|priceCurrency|EUR/i);
   assert.doesNotMatch(html, /codex-preview|Your site is taking shape/i);
